@@ -995,7 +995,7 @@ class DateTimePickerWidget extends StatelessWidget {
                         child: child!,
                       );
                     },
-                    initialTime: TimeOfDay.fromDateTime(getDate(
+                    initialTime: textController.text.isEmpty ? TimeOfDay.fromDateTime(DateTime.now()):TimeOfDay.fromDateTime(getDate(
                         CalenderUtils.previewDDMMMYYYYHHMMSSDP,
                         textController.text)));
 

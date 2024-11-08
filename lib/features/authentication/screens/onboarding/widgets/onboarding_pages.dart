@@ -21,9 +21,10 @@ class OnBoardingPages extends StatelessWidget {
       child: Column(
 
         children: [
-          Image(fit: BoxFit.contain,
+          Image(
+              fit: BoxFit.fill,
               width: CHelperFunction.screenWidth() * 0.8,
-              height: CHelperFunction.screenHeight() * 0.6,
+              height: CHelperFunction.screenHeight() * 0.65,
               image: AssetImage(image)),
           Text(
             textAlign: TextAlign.center,

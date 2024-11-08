@@ -5,6 +5,7 @@ import 'package:hr_solutions/features/authentication/controllers/employee/employ
 import 'package:hr_solutions/features/authentication/screens/signup/widgets/EmployeeFormScreen.dart';
 import 'package:hr_solutions/utils/constants/colors.dart';
 import 'package:hr_solutions/utils/constants/sizes.dart';
+import 'package:hr_solutions/utils/helpers/helper_functions.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/styles/spacing_styles.dart';
@@ -77,6 +78,8 @@ class EmployeeListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final isDarkMode = CHelperFunction.isDarkMode(context);
     return Obx(
       () => ListView.separated(
         shrinkWrap: true,
@@ -91,7 +94,7 @@ class EmployeeListView extends StatelessWidget {
             },
             child: Obx(
               () => Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey.shade100),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: isDarkMode ? Colors.grey.shade500 : Colors.grey.shade100),
                 child: Padding(
                   padding: EdgeInsets.all(12),
                   child: Column(
@@ -107,7 +110,7 @@ class EmployeeListView extends StatelessWidget {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(empList.value[index].surName,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600),)
+                                Text('${empList.value[index].surName} ${empList.value[index].givenName}',style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600),)
                               ]),
                         ],
                       ),
@@ -125,7 +128,7 @@ class EmployeeListView extends StatelessWidget {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(empList.value[index].employeeNumber,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w700),)
+                                Text(empList.value[index].employeeNumber,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600),)
                               ]),
 
                           SizedBox(width: CSizes.spaceBtwnInputfields,),
@@ -136,7 +139,7 @@ class EmployeeListView extends StatelessWidget {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(empList.value[index].status,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w700,color: CColors.primary),)
+                                Text(empList.value[index].status,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600,color: CColors.primary),)
                               ]),
 
                           SizedBox(width: CSizes.spaceBtwnInputfields,),
@@ -147,7 +150,7 @@ class EmployeeListView extends StatelessWidget {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(empList.value[index].gender,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w700),)
+                                Text(empList.value[index].gender,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600),)
                               ]),
                           SizedBox(width: CSizes.spaceBtwnInputfields/2,),
 
@@ -161,7 +164,7 @@ class EmployeeListView extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(empList.value[index].officeName,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w700),),
+                      Text(empList.value[index].officeName,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600),),
                       SizedBox(
                         height: CSizes.spaceBtwnInputfields,
                       ),
@@ -170,7 +173,7 @@ class EmployeeListView extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(empList.value[index].departmentName,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w700),),
+                      Text(empList.value[index].departmentName,style: TextStyle().copyWith(fontSize: 16,fontWeight: FontWeight.w600),),
                       SizedBox(
                         height: CSizes.spaceBtwnInputfields,
                       ),
