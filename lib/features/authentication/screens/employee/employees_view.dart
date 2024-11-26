@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hr_solutions/features/authentication/controllers/employee/employee_view_controller.dart';
-import 'package:hr_solutions/features/authentication/screens/signup/widgets/EmployeeFormScreen.dart';
+import 'package:hr_solutions/features/authentication/controllers/language/change_language_controller.dart';
 import 'package:hr_solutions/utils/constants/colors.dart';
 import 'package:hr_solutions/utils/constants/sizes.dart';
 import 'package:hr_solutions/utils/helpers/helper_functions.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:hr_solutions/utils/language/app_language_utils.dart';
 
 import '../../../../common/styles/spacing_styles.dart';
-import '../../../../utils/constants/text_strings.dart';
-import '../../../../utils/validators/c_validation.dart';
-import '../../controllers/sign_up/employee_form_controller.dart';
+
 import '../../models/employeeDO.dart';
 import '../signup/employee_add_edit_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class EmployeesView extends StatelessWidget {
   const EmployeesView({super.key});
@@ -21,6 +21,8 @@ class EmployeesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(EmployeeViewController());
+    // final languageController = Get.find<ChangeLanguageController>();
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -28,16 +30,54 @@ class EmployeesView extends StatelessWidget {
           padding: CSpacingStyles.paddingWithAppBarHeight,
           child: Column(
             children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Expanded(
+              //       child: ElevatedButton(
+              //         onPressed: () {
+              //           // MyApp.setLocale(context, Locale('en'));
+              //           AppLanguageUtils.setAppLocalization('en');
+              //
+              //           // languageController.setLanguage('en');
+              //         }, child: Text('English'),
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: ElevatedButton(
+              //         onPressed: () {
+              //           // MyApp.setLocale(context, Locale('ar'));
+              //           AppLanguageUtils.setAppLocalization('ar');
+              //
+              //           // Get.updateLocale(Locale('ar'));
+              //           // languageController.setLanguage('ar');
+              //         }, child: Text('Arabic'),
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: ElevatedButton(
+              //         onPressed: () {
+              //           // MyApp.setLocale(context, Locale('hi'));
+              //           AppLanguageUtils.setAppLocalization('hi');
+              //           // Get.updateLocale(Locale('hi'));
+              //
+              //           // languageController.setLanguage('hi');
+              //         }, child: Text('Hindi'),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
               Row(
                 children: [
                   Expanded(
-                    child: Text('Employees Information'),
+                    child: Text(AppLanguageUtils.instance.onBoardingTitle1),
                   ),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => Get.to(EmployeeAddEditScreen(
                           employeeDetails: null, newCustomer: true)),
-                      child: Text("Add New Employee"),
+                      child: Text(AppLanguageUtils.instance.addNewEmployee),
                     ),
                   ),
                 ],
@@ -106,7 +146,7 @@ class EmployeeListView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Employee Name",style: TextStyle().copyWith(fontSize: 12,fontWeight: FontWeight.w400),),
+                                Text(AppLanguageUtils.instance.employeeName,style: TextStyle().copyWith(fontSize: 12,fontWeight: FontWeight.w400),),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -124,7 +164,7 @@ class EmployeeListView extends StatelessWidget {
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Employee Number",style: TextStyle().copyWith(fontSize: 12,),),
+                                Text(AppLanguageUtils.instance.employeeNumber,style: TextStyle().copyWith(fontSize: 12,),),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -135,7 +175,7 @@ class EmployeeListView extends StatelessWidget {
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Status",style: TextStyle().copyWith(fontSize: 12,),),
+                                Text(AppLanguageUtils.instance.status,style: TextStyle().copyWith(fontSize: 12,),),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -146,7 +186,7 @@ class EmployeeListView extends StatelessWidget {
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Gender",style: TextStyle().copyWith(fontSize: 12,),),
+                                Text(AppLanguageUtils.instance.gender,style: TextStyle().copyWith(fontSize: 12,),),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -160,7 +200,7 @@ class EmployeeListView extends StatelessWidget {
                         height: CSizes.spaceBtwnInputfields,
                       ),
 
-                      Text("Office",style: TextStyle().copyWith(fontSize: 12,),),
+                      Text(AppLanguageUtils.instance.office,style: TextStyle().copyWith(fontSize: 12,),),
                       SizedBox(
                         height: 5,
                       ),
@@ -169,7 +209,7 @@ class EmployeeListView extends StatelessWidget {
                         height: CSizes.spaceBtwnInputfields,
                       ),
 
-                      Text("Department",style: TextStyle().copyWith(fontSize: 12,),),
+                      Text(AppLanguageUtils.instance.department,style: TextStyle().copyWith(fontSize: 12,),),
                       SizedBox(
                         height: 5,
                       ),

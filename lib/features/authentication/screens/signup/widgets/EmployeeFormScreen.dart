@@ -1,18 +1,14 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:hr_solutions/features/authentication/controllers/sign_up/employee_form_controller.dart';
-import 'package:hr_solutions/features/authentication/controllers/sign_up/sign_up_controller.dart';
 import 'package:hr_solutions/features/authentication/models/employeeDO.dart';
+import 'package:hr_solutions/utils/language/app_language_utils.dart';
 import 'package:hr_solutions/utils/validators/c_validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
@@ -20,11 +16,11 @@ import '../../../../../utils/constants/calender_utils.dart';
 
 class EmployeeFormScreen extends StatelessWidget {
   EmployeeDO? employeeDetails;
-  bool? newCustomer;
+  bool newCustomer;
 
   EmployeeFormScreen(
     this.employeeDetails, {
-    required this.newCustomer,
+    this.newCustomer = false,
     super.key,
   });
 
@@ -51,11 +47,11 @@ class EmployeeFormScreen extends StatelessWidget {
             Row(children: [
               Expanded(child: Text("")),
               Expanded(
-                  child: ElevatedButton(
+                  child: newCustomer ? Text("") : ElevatedButton(
                 onPressed: () {
                   controller.editAccess.value = true;
                 },
-                child: Text("Edit"),
+                child: Text(AppLanguageUtils.instance.edit),
               ))
             ]),
 
@@ -71,10 +67,10 @@ class EmployeeFormScreen extends StatelessWidget {
                       () => DropdownButtonFormField(
                         onTap: () {},
                         validator: (value) => CValidation.validateDropDownText(
-                            CTexts.empTitle, value),
+                            AppLanguageUtils.instance.empTitle, value),
                         decoration: InputDecoration(
                           enabled: true,
-                          labelText: CTexts.empTitle,
+                          labelText: AppLanguageUtils.instance.empTitle,
                           // Set the label here
                           border: OutlineInputBorder(),
                         ),
@@ -99,13 +95,12 @@ class EmployeeFormScreen extends StatelessWidget {
                       // enabled: controller.editAccess.value,
                       readOnly: !controller.editAccess.value,
                       validator: (value) => CValidation.validateInputText(
-                          fieldName: CTexts.surName,
+                          fieldName: AppLanguageUtils.instance.surName,
                           value: value,
                           minRange: 3,
                           maxRange: 100),
                       controller: controller.surNameController,
                       decoration: InputDecoration(
-                          hintText: "Enter your ${CTexts.surName}",
                           hintStyle: TextStyle().copyWith(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 10),
@@ -113,7 +108,7 @@ class EmployeeFormScreen extends StatelessWidget {
                             Iconsax.user,
                             size: 18,
                           ),
-                          labelText: CTexts.surName),
+                          labelText: AppLanguageUtils.instance.surName),
                     ),
                   ),
                 ),
@@ -130,16 +125,15 @@ class EmployeeFormScreen extends StatelessWidget {
                 readOnly: !controller.editAccess.value,
                 controller: controller.yourNameController,
                 validator: (value) => CValidation.validateInputText(
-                    fieldName: CTexts.yourName,
+                    fieldName: AppLanguageUtils.instance.yourName,
                     value: value,
                     minRange: 3,
                     maxRange: 100),
                 expands: false,
                 decoration: InputDecoration(
-                    hintText: "Enter your ${CTexts.yourName}",
                     hintStyle: const TextStyle().copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 10),
-                    labelText: CTexts.yourName,
+                    labelText: AppLanguageUtils.instance.yourName,
                     prefixIcon: Icon(
                       Iconsax.user,
                       size: 18,
@@ -160,16 +154,15 @@ class EmployeeFormScreen extends StatelessWidget {
                     readOnly: !controller.editAccess.value,
                     controller: controller.shortNameController,
                     validator: (value) => CValidation.validateInputText(
-                        fieldName: CTexts.shortName,
+                        fieldName: AppLanguageUtils.instance.shortName,
                         value: value,
                         minRange: 3,
                         maxRange: 10),
                     expands: false,
                     decoration: InputDecoration(
-                        hintText: "Enter your ${CTexts.shortName}",
                         hintStyle: const TextStyle().copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 10),
-                        labelText: CTexts.shortName,
+                        labelText: AppLanguageUtils.instance.shortName,
                         // prefix: Icon(
                         //   Iconsax.user,
                         //   size: 18,
@@ -189,17 +182,16 @@ class EmployeeFormScreen extends StatelessWidget {
                     readOnly: !controller.editAccess.value,
                     controller: controller.teluguNameController,
                     validator: (value) => CValidation.validateInputText(
-                        fieldName: CTexts.teluguName,
+                        fieldName: AppLanguageUtils.instance.teluguName,
                         value: value,
                         minRange: 3,
                         maxRange: 10,
                         specialCharacters: false),
                     expands: false,
                     decoration: InputDecoration(
-                        hintText: "Enter your ${CTexts.teluguName}",
                         hintStyle: const TextStyle().copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 10),
-                        labelText: CTexts.teluguName,
+                        labelText: AppLanguageUtils.instance.teluguName,
                         prefixIcon: Icon(
                           Iconsax.user,
                           size: 18,
@@ -215,8 +207,8 @@ class EmployeeFormScreen extends StatelessWidget {
 
             Obx(
               () => DropdownButtonFormField(
-                decoration: const InputDecoration(
-                  labelText: CTexts.gender, // Set the label here
+                decoration:  InputDecoration(
+                  labelText: AppLanguageUtils.instance.gender, // Set the label here
                   border: OutlineInputBorder(),
                 ),
                 value: controller.gender.value,
@@ -242,7 +234,7 @@ class EmployeeFormScreen extends StatelessWidget {
                 readOnly: !controller.editAccess.value,
                 controller: controller.employeeNumberController,
                 validator: (value) => CValidation.validateInputText(
-                    fieldName: CTexts.empNumber,
+                    fieldName: AppLanguageUtils.instance.empNumber,
                     value: value,
                     minRange: 3,
                     maxRange: 10,
@@ -251,10 +243,9 @@ class EmployeeFormScreen extends StatelessWidget {
                     utfCharacters: false),
                 expands: false,
                 decoration: InputDecoration(
-                    hintText: "Enter your ${CTexts.empNumber}",
                     hintStyle: const TextStyle().copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 10),
-                    labelText: CTexts.empNumber,
+                    labelText: AppLanguageUtils.instance.empNumber,
                     prefixIcon: Icon(Iconsax.user_edit, size: 18)),
               ),
             ),
@@ -271,7 +262,7 @@ class EmployeeFormScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      CTexts.empStatus,
+                      AppLanguageUtils.instance.empStatus,
                       style: const TextStyle().copyWith(
                           fontSize: 12.0,
                           fontWeight: FontWeight.normal,
@@ -294,7 +285,7 @@ class EmployeeFormScreen extends StatelessWidget {
               ),
               Expanded(
                 child: DatePickerWidget(
-                  label: CTexts.dateOfBirth,
+                  label: "dob",
                   onDateSelected: (date) => (),
                   textController: controller.dobController,
                   controller: controller,
@@ -309,7 +300,7 @@ class EmployeeFormScreen extends StatelessWidget {
             Row(children: [
               Expanded(
                 child: DatePickerWidget(
-                  label: CTexts.dateOfJoining,
+                  label: "doj",
                   onDateSelected: (date) => (),
                   textController: controller.dojController,
                   controller: controller,
@@ -320,7 +311,7 @@ class EmployeeFormScreen extends StatelessWidget {
               ),
               Expanded(
                 child: DatePickerWidget(
-                  label: CTexts.dateOfMarriage,
+                  label: "dom",
                   onDateSelected: (date) => (),
                   textController: controller.domController,
                   controller: controller,
@@ -339,10 +330,9 @@ class EmployeeFormScreen extends StatelessWidget {
                 validator: (value) => CValidation.validateEmail(value),
                 expands: false,
                 decoration: InputDecoration(
-                    hintText: "Enter your ${CTexts.officeMail}",
                     hintStyle: const TextStyle().copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 10),
-                    labelText: CTexts.officeMail,
+                    labelText: AppLanguageUtils.instance.officeMail,
                     prefixIcon: Icon(
                       Iconsax.user_edit,
                       size: 18,
@@ -365,10 +355,10 @@ class EmployeeFormScreen extends StatelessWidget {
                         CValidation.validatePhoneNumber(value),
                     expands: false,
                     decoration: InputDecoration(
-                        hintText: "Enter your ${CTexts.officePhone}",
+                        // hintText: "Enter your ${CTexts.officePhone}",
                         hintStyle: const TextStyle().copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 10),
-                        labelText: CTexts.officePhone,
+                        labelText: AppLanguageUtils.instance.officePhone,
                         prefixIcon: Icon(
                           Iconsax.user,
                           size: 18,
@@ -387,10 +377,10 @@ class EmployeeFormScreen extends StatelessWidget {
                         CValidation.validatePhoneNumber(value),
                     expands: false,
                     decoration: InputDecoration(
-                        hintText: "Enter your ${CTexts.workMobile}",
+                        // hintText: "Enter your ${CTexts.workMobile}",
                         hintStyle: const TextStyle().copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 10),
-                        labelText: CTexts.workMobile,
+                        labelText: AppLanguageUtils.instance.workMobile,
                         prefixIcon: Icon(
                           Iconsax.user,
                           size: 18,
@@ -407,8 +397,8 @@ class EmployeeFormScreen extends StatelessWidget {
             Obx(
               () => DropdownButtonFormField(
                 isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: CTexts.supervisor, // Set the label here
+                decoration:  InputDecoration(
+                  labelText: AppLanguageUtils.instance.supervisor, // Set the label here
                   border: OutlineInputBorder(),
                 ),
                 value: controller.supervisor.value,
@@ -441,8 +431,8 @@ class EmployeeFormScreen extends StatelessWidget {
             Obx(
               () => DropdownButtonFormField(
                 isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: CTexts.manager, // Set the label here
+                decoration:  InputDecoration(
+                  labelText: AppLanguageUtils.instance.manager, // Set the label here
                   border: OutlineInputBorder(),
                 ),
                 value: controller.manager.value,
@@ -469,8 +459,8 @@ class EmployeeFormScreen extends StatelessWidget {
             Obx(
               () => DropdownButtonFormField(
                 isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: CTexts.office, // Set the label here
+                decoration:  InputDecoration(
+                  labelText: AppLanguageUtils.instance.office, // Set the label here
                   border: OutlineInputBorder(),
                 ),
                 value: controller.office.value,
@@ -497,8 +487,8 @@ class EmployeeFormScreen extends StatelessWidget {
             Obx(
               () => DropdownButtonFormField(
                 isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: CTexts.department, // Set the label here
+                decoration:  InputDecoration(
+                  labelText: AppLanguageUtils.instance.department, // Set the label here
                   border: OutlineInputBorder(),
                 ),
                 value: controller.department.value,
@@ -524,8 +514,8 @@ class EmployeeFormScreen extends StatelessWidget {
 
             Obx(
               () => DropdownButtonFormField(
-                decoration: const InputDecoration(
-                  labelText: CTexts.employmentType, // Set the label here
+                decoration:  InputDecoration(
+                  labelText: AppLanguageUtils.instance.employmentType, // Set the label here
                   border: OutlineInputBorder(),
                 ),
                 value: controller.employmentType.value,
@@ -554,16 +544,16 @@ class EmployeeFormScreen extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     controller: controller.testScoreController,
                     validator: (value) =>
-                        CValidation.validateTestScore(CTexts.testScore, value),
+                        CValidation.validateTestScore(AppLanguageUtils.instance.testScore, value),
                     onChanged: (value) {
                       _testScoreKey.currentState!.validate();
                     },
                     expands: false,
                     decoration: InputDecoration(
-                        hintText: "Enter your ${CTexts.testScore}",
+                        // hintText: "Enter your ${CTexts.testScore}",
                         hintStyle: const TextStyle().copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 10),
-                        labelText: CTexts.testScore,
+                        labelText: AppLanguageUtils.instance.testScore,
                         prefixIcon: Icon(
                           Iconsax.user,
                           size: 18,
@@ -581,16 +571,16 @@ class EmployeeFormScreen extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     controller: controller.salaryController,
                     validator: (value) =>
-                        CValidation.validateSalary(CTexts.salary, value),
+                        CValidation.validateSalary(AppLanguageUtils.instance.salary, value),
                     onChanged: (value) {
                       _salaryKey.currentState!.validate();
                     },
                     expands: false,
                     decoration: InputDecoration(
-                        hintText: "Enter your ${CTexts.salary}",
+                        // hintText: "Enter your ${CTexts.salary}",
                         hintStyle: const TextStyle().copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 10),
-                        labelText: CTexts.salary,
+                        labelText: AppLanguageUtils.instance.salary,
                         prefixIcon: Icon(
                           Iconsax.user,
                           size: 18,
@@ -609,13 +599,13 @@ class EmployeeFormScreen extends StatelessWidget {
                 readOnly: !controller.editAccess.value,
                 controller: controller.linkedinController,
                 validator: (value) =>
-                    CValidation.validateUrl(CTexts.linkedin, value),
+                    CValidation.validateUrl(AppLanguageUtils.instance.linkedin, value),
                 expands: false,
                 decoration: InputDecoration(
-                    hintText: "Enter your ${CTexts.linkedin}",
+                    // hintText: "Enter your ${CTexts.linkedin}",
                     hintStyle: const TextStyle().copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 10),
-                    labelText: CTexts.linkedin,
+                    labelText: AppLanguageUtils.instance.linkedin,
                     prefixIcon: Icon(
                       Iconsax.user,
                       size: 18,
@@ -632,7 +622,7 @@ class EmployeeFormScreen extends StatelessWidget {
                 readOnly: !controller.editAccess.value,
                 controller: controller.remarksController,
                 validator: (value) =>
-                    CValidation.validateRemarks(CTexts.remarks, value),
+                    CValidation.validateRemarks(AppLanguageUtils.instance.remarks, value),
                 // expands: true,
                 maxLines: 20,
                 minLines: 5,
@@ -641,7 +631,7 @@ class EmployeeFormScreen extends StatelessWidget {
                     alignLabelWithHint: true,
                     // filled: true,
                     // fillColor: Colors.grey.shade200,
-                    labelText: CTexts.remarks,
+                    labelText: AppLanguageUtils.instance.remarks,
                     labelStyle: TextStyle().copyWith()),
               ),
             ),
@@ -653,7 +643,7 @@ class EmployeeFormScreen extends StatelessWidget {
             //Skills
             Obx(
               () => ExpansionTile(
-                title: Text('Skills'),
+                title: Text(AppLanguageUtils.instance.skills),
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 5, 0, 15),
@@ -702,7 +692,7 @@ class EmployeeFormScreen extends StatelessWidget {
             //Weekends
             Obx(
               () => ExpansionTile(
-                title: Text('Weekends'),
+                title: Text(AppLanguageUtils.instance.weekend),
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 5, 0, 15),
@@ -749,7 +739,7 @@ class EmployeeFormScreen extends StatelessWidget {
             ),
 
             DateTimePickerWidget(
-              label: CTexts.joiningDateTime,
+              label: AppLanguageUtils.instance.joiningDateTime,
               onDateSelected: (date) => (),
               textController: controller.joiningDate,
               controller: controller,
@@ -765,7 +755,7 @@ class EmployeeFormScreen extends StatelessWidget {
                 controller: controller.officeTime,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return '${CTexts.officeTime} is mandatory';
+                    return '${AppLanguageUtils.instance.officeTime} is mandatory';
                   }
 
                   return null;
@@ -800,7 +790,7 @@ class EmployeeFormScreen extends StatelessWidget {
                   alignLabelWithHint: true,
                   // filled: true,
                   // fillColor: Colors.grey.shade200,
-                  labelText: CTexts.officeTime,
+                  labelText: AppLanguageUtils.instance.officeTime,
                   // labelStyle: TextStyle().copyWith()
                 ),
               ),
@@ -815,7 +805,7 @@ class EmployeeFormScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: controller.createAccount,
-                child: Text("Create Employee",
+                child: Text(AppLanguageUtils.instance.createAccount,
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!
@@ -857,16 +847,16 @@ class DatePickerWidget extends StatelessWidget {
 
     String? validate(String value) {
       switch (label) {
-        case CTexts.dateOfBirth:
+        case "dob":
           return CValidation.validateEmptyText(
-            CTexts.dateOfBirth,
+            AppLanguageUtils.instance.dateOfBirth,
             value,
           );
-        case CTexts.dateOfJoining:
-          return CValidation.validateJoiningDate(CTexts.dateOfJoining, value!,
+        case "doj":
+          return CValidation.validateJoiningDate(AppLanguageUtils.instance.dateOfJoining, value!,
               controller.dojController.text, CalenderUtils.previewDDMMMYYYYDP);
-        case CTexts.dateOfMarriage:
-          return CValidation.validateJoiningDate(CTexts.dateOfMarriage, value!,
+        case "dom":
+          return CValidation.validateJoiningDate(AppLanguageUtils.instance.dateOfMarriage, value!,
               controller.domController.text, CalenderUtils.previewDDMMMYYYYDP);
       }
     }

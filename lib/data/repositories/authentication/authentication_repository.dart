@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hr_solutions/features/navigation/navigation_menu.dart';
 
 import '../../../features/authentication/screens/employee/employees_view.dart';
 import '../../../features/authentication/screens/login/login_screen.dart';
@@ -28,8 +29,10 @@ class AuthenticationRepository extends GetxController {
     }
     deviceStorage.writeIfNull("IsFirstTime", true);
     deviceStorage.read("IsFirstTime") != true
-        ? Get.offAll(() => const EmployeesView())
-        : Get.offAll(() => const OnBoardingScreen());
+        ? Get.offAll(() => const NavigationMenu())
+        : Get.offAll(() =>  OnBoardingScreen());
+
+    // Get.offAll(() =>  OnBoardingScreen());
   }
 
 /*--------------------------------- Email & Password Sign In ---------------------------------*/

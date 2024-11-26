@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hr_solutions/features/authentication/screens/employee/employees_view.dart';
+import 'package:hr_solutions/features/navigation/navigation_menu.dart';
 
 import '../../screens/login/login_screen.dart';
 
@@ -36,7 +37,7 @@ class OnBoardingController extends GetxController {
         print('============GET STORAGE ============');
         print(storage.read("IsFirstTime"));
       }
-      Get.offAll(() => const EmployeesView());
+      Get.offAll(() => const NavigationMenu());
     } else {
       currentPageIndex.value = currentPageIndex.value + 1;
       pageController.jumpToPage(currentPageIndex.value);

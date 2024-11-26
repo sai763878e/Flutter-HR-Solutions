@@ -42,7 +42,7 @@ class EmployeeAddEditScreen extends StatelessWidget {
               // ),
 
               ///Form
-               EmployeeFormScreen(employeeDetails,newCustomer:newCustomer),
+               EmployeeFormScreen(employeeDetails,newCustomer:newCustomer!),
 
               const SizedBox(
                 height: CSizes.spaceBtwSections,
