@@ -100,17 +100,17 @@ class OnBoardingScreen extends StatelessWidget {
             //Horizontal Scrollable Pages
             children: [
               OnBoardingPages(
-                image: CImages.onBoardingImage1,
+                image: CImages.onBoardingImageNew1,
                 title: CTexts.onBoardingTitle1,
                 subTitle: CTexts.onBoardingSubTitle1,
               ),
               OnBoardingPages(
-                image: CImages.onBoardingImage2,
+                image: CImages.onBoardingImageNew2,
                 title: CTexts.onBoardingTitle2,
                 subTitle: CTexts.onBoardingSubTitle2,
               ),
               OnBoardingPages(
-                image: CImages.onBoardingImage3,
+                image: CImages.onBoardingImageNew3,
                 title: CTexts.onBoardingTitle3,
                 subTitle: CTexts.onBoardingSubTitle3,
               )

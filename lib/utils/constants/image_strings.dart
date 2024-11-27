@@ -1,10 +1,11 @@
 class CImages {
-  static const String onBoardingImage1 =
-      "assets/images/onboarding_images/banner_1.gif";
-  static const String onBoardingImage2 =
-      "assets/images/onboarding_images/banner_2.gif";
-  static const String onBoardingImage3 =
-      "assets/images/onboarding_images/banner_3.gif";
+
+  static const String onBoardingImageNew1 =
+      "assets/images/onboarding_images/onboarding_1.json";
+  static const String onBoardingImageNew2 =
+      "assets/images/onboarding_images/onboarding_2.json";
+  static const String onBoardingImageNew3 =
+      "assets/images/onboarding_images/onboarding_3.json";
 
   static const String appLogoLight =
       "assets/images/onboarding_images/secure_payment_gif.gif";

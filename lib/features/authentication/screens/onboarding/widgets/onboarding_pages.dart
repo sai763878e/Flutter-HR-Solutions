@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/device/device_utility.dart';
@@ -21,11 +22,14 @@ class OnBoardingPages extends StatelessWidget {
       child: Column(
 
         children: [
-          Image(
-              fit: BoxFit.fill,
-              width: CHelperFunction.screenWidth() * 0.8,
-              height: CHelperFunction.screenHeight() * 0.65,
-              image: AssetImage(image)),
+          Lottie.asset(image,
+          width: CHelperFunction.screenWidth() * 0.8,
+              height: CHelperFunction.screenHeight() * 0.65),
+          // Image(
+          //     fit: BoxFit.fill,
+          //     width: CHelperFunction.screenWidth() * 0.8,
+          //     height: CHelperFunction.screenHeight() * 0.65,
+          //     image: AssetImage(image)),
           Text(
             textAlign: TextAlign.center,
             title,
