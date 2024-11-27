@@ -1,48 +1,47 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
-
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
-import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'dart:io';
 
-class AppDatabase {
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-  static Database? singleInstance ;
+class AppDatabase {
+  static Database? singleInstance;
 
   static Future<Database> get instance async {
     singleInstance ??= await openDatabaseFromAsset();
     return singleInstance!;
   }
 
-
-
   static Future<Database> openDatabaseFromAsset() async {
-    // Get the directory for storing the database
-    final documentsDirectory = await getApplicationDocumentsDirectory();
-    final dbPath = join(documentsDirectory.path, 'empform.sqlite');
+    var dbPath = "";
+    try {
+      // Get the directory for storing the database
+      final documentsDirectory = await getApplicationDocumentsDirectory();
+      dbPath = "${documentsDirectory.path}/empform.sqlite";
 
-    // Check if the database already exists to avoid overwriting it
-    if (!await File(dbPath).exists()) {
-      // If not, copy it from the assets folder
-      ByteData data = await rootBundle.load('assets/database/empform.sqlite');
-      List<int> bytes =
-      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(dbPath).writeAsBytes(bytes);
+      // Check if the database already exists to avoid overwriting it
+      if (!await File(dbPath).exists()) {
+        // If not, copy it from the assets folder
+        ByteData data = await rootBundle.load('assets/database/empform.sqlite');
+        List<int> bytes =
+            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+        await File(dbPath).writeAsBytes(bytes);
+      }
+    } catch (e) {
+      if(kDebugMode) print(e);
     }
+    // var databaseFactory = databaseFactoryFfi;
 
     // Open and return the database
-    return await openDatabase(dbPath);
+    return await /*databaseFactory.*/openDatabase(dbPath);
   }
 
-  static Future<int> insertOrUpdateRow(Database db,Map<String, dynamic> row,String tuidColName,String tableName) async {
-
+  static Future<int> insertOrUpdateRow(Database db, Map<String, dynamic> row,
+      String tuidColName, String tableName) async {
     String id = row[tuidColName];
     List<Map<String, dynamic>> result = await db.query(
       tableName,
@@ -62,9 +61,5 @@ class AppDatabase {
         whereArgs: [id],
       );
     }
-
   }
-
-
-
 }

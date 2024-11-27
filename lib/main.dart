@@ -13,6 +13,7 @@ import 'data/repositories/authentication/authentication_repository.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:path/path.dart';
 import 'dart:io';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 Future<void> main() async {
   //Add Widgets binding
@@ -22,6 +23,8 @@ Future<void> main() async {
 
   // Init Local Storage
   await GetStorage.init();
+  sqfliteFfiInit();
+  // databaseFactory = databaseFactoryFfi;
   //Todo: Await Native Splash
   //Todo: Init Firebase
   // await Firebase.initializeApp(

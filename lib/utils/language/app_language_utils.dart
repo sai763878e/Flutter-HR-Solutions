@@ -14,11 +14,17 @@ class AppLanguageUtils {
 
   static setAppLocalization(String code) async {
     await Get.updateLocale(Locale(code));
-    await GetStorage().write(PreferenceConstants.selectedLanguageCode, code);
+    await CLocalStorage()
+        .saveData(PreferenceConstants.selectedLanguageCode, code);
     // _appLocalization = AppLocalizations.of(Get.context!)!;
   }
 
-  static String getPreferenceLanguage(){
-    return CLocalStorage().readData(PreferenceConstants.selectedLanguageCode) ?? 'en';
+  static String getPreferenceLanguage() {
+    String code =
+        CLocalStorage().readData(PreferenceConstants.selectedLanguageCode)
+            ?? "en";
+    CLocalStorage()
+        .saveData(PreferenceConstants.selectedLanguageCode, code);
+    return code;
   }
 }

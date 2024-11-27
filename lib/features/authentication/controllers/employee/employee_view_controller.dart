@@ -28,7 +28,9 @@ class EmployeeViewController extends GetxController {
       appDatabase = await AppDatabase.instance;
 
       await fetchEmployees();
-    } catch (e) {}
+    } catch (e) {
+      if(kDebugMode) print(e);
+    }
   }
 
   Future<bool> fetchEmployees() async {
